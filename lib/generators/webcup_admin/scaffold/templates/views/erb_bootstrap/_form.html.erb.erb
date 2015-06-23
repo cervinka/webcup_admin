@@ -1,0 +1,51 @@
+<%%= form_for(<%= "[:#{prefix}, @#{singular_table_name}]" %>, html: { class: 'form-horizontal <%= singular_table_name %>' }) do |f| %>
+  <%% if @<%= singular_table_name %>.errors.any? %>
+    <div id="error_explanation" class="panel panel-danger">
+      <div class="panel-heading">
+        <h2 class="panel-title"><%%= pluralize(@<%= singular_table_name %>.errors.count, "error") %> prohibited this <%= singular_table_name %> from being saved:</h2>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <%% @<%= singular_table_name %>.errors.full_messages.each do |msg| %>
+          <li><%%= msg %></li>
+        <%% end %>
+        </ul>
+      </div>
+    </div>
+  <%% end %>
+
+  <%#-
+    singular_table_name
+    human_name
+    class_name
+
+    attribute.field_type
+    attribute.password_digest?
+    attribute.reference?
+    attribute.column_name
+    attribute.name
+    City.human_attribute_name(:active)
+  %>
+<% attributes.each do |attribute| -%>
+
+  <%- if attribute.reference? -%>
+    <%%= f.form_group_field :<%= attribute.column_name %>, type: :chosen, label: <%= class_name %>.human_attribute_name(:<%= attribute.name %>), collection: <%= attribute.column_name.gsub(/_id$/,'').classify %>.order(:name).map { |m| [m.name, m.id] } %>
+  <%- elsif attribute.field_type == :check_box -%>
+    <%%= f.form_group_field :<%= attribute.column_name %>, label: <%= class_name %>.human_attribute_name(:<%= attribute.name %>), type: :checkbox %>
+  <%- elsif attribute.field_type == :text_field -%>
+    <%%= f.form_group_field :<%= attribute.column_name %>, label: <%= class_name %>.human_attribute_name(:<%= attribute.name %>) %>
+  <%- elsif attribute.field_type == :text_area -%>
+    <%%= f.form_group_field :<%= attribute.column_name %>, label: <%= class_name %>.human_attribute_name(:<%= attribute.name %>), type: :textarea %>
+  <%- elsif attribute.field_type == :datetime_select -%>
+    <%%= f.form_group_field :<%= attribute.column_name %>, label: <%= class_name %>.human_attribute_name(:<%= attribute.name %>), type: :datetime %>
+  <%- else
+    raise "Unknown field_type: '#{attribute.field_type}'" -%>
+  <%- end -%>
+<% end -%>
+
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+      <%%= f.submit 'Uložit', class: 'btn btn-primary' %>
+    </div>
+  </div>
+<%% end %>

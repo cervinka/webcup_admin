@@ -89,6 +89,8 @@ class WebcupFormBuilder < ActionView::Helpers::FormBuilder
     case type
       when :text, :date, :datetime, nil
         text_field(name, options)
+      when :number
+        number_field(name, options)
       when :email
         email_field(name, options)
       when :textarea

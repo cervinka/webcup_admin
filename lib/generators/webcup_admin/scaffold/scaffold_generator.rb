@@ -49,13 +49,13 @@ module WebcupAdmin
         invoke resource_route, [prefixed_class_name]
       end
 
-      def generate_model
-        # pp attributes
-        # pp name
-        # pp attributes_hash
-        # pp attributes_list
-
-      end
+      # def generate_model
+      #   # pp attributes
+      #   # pp name
+      #   # pp attributes_hash
+      #   # pp attributes_list
+      #
+      # end
 
 
       def create_controller_files
@@ -68,9 +68,9 @@ module WebcupAdmin
         end
       end
 
-      def create_test_files
-        template "tests/test_unit/functional_test.rb.erb", File.join("test/controllers", prefix, controller_class_path, "#{controller_file_name}_controller_test.rb")
-      end
+      # def create_test_files
+      #   template "tests/test_unit/functional_test.rb.erb", File.join("test/controllers", prefix, controller_class_path, "#{controller_file_name}_controller_test.rb")
+      # end
 
       hook_for :helper, in: :rails do |helper|
         invoke helper, [prefixed_controller_class_name]
@@ -98,6 +98,10 @@ module WebcupAdmin
           end
         end
       end
+
+      # hook_for :test_framework, :in => 'rails' do |test|
+      #   invoke test, [prefixed_class_name]
+      # end
 
       hook_for :assets, in: :rails do |assets|
         invoke assets, [prefixed_class_name]

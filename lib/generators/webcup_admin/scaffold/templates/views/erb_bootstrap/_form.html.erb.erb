@@ -34,6 +34,8 @@
     <%%= f.form_group_field :<%= attribute.column_name %>, label: <%= class_name %>.human_attribute_name(:<%= attribute.name %>), type: :checkbox %>
   <%- elsif attribute.field_type == :text_field -%>
     <%%= f.form_group_field :<%= attribute.column_name %>, label: <%= class_name %>.human_attribute_name(:<%= attribute.name %>) %>
+  <%- elsif attribute.field_type == :number_field -%>
+    <%%= f.form_group_field :<%= attribute.column_name %>, label: <%= class_name %>.human_attribute_name(:<%= attribute.name %>), type: :number %>
   <%- elsif attribute.field_type == :text_area -%>
     <%%= f.form_group_field :<%= attribute.column_name %>, label: <%= class_name %>.human_attribute_name(:<%= attribute.name %>), type: :textarea %>
   <%- elsif attribute.field_type == :datetime_select -%>

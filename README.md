@@ -20,7 +20,14 @@ Or install it yourself as:
 
 ## Usage
 
-To be done ...
+### Setup
+
+Set default form builder:
+
+```ruby
+# config/application.rb
+config.action_view.default_form_builder = 'WebcupFormBuilder'
+```
 
 ### Generator
 

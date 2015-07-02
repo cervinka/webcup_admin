@@ -103,12 +103,16 @@ class WebcupFormBuilder < ActionView::Helpers::FormBuilder
         options[:class] << 'i-checks'
         check_box(name, options)
       when :select
-        collection = options[:collection] or raise 'Please specify collection for select.'
-        select name, collection, options, {class: options[:class]}
+        collection = options.delete(:collection) or raise 'Please specify collection for select.'
+        select name, collection, options, {class: options[:class]}.merge(options[:html_options] || {})
       when :chosen
         options[:class] << 'chosen-select'
-        collection = options[:collection] or raise 'Please specify collection for chosen.'
-        select name, collection, options, {class: options[:class]}
+        collection = options.delete(:collection) or raise 'Please specify collection for chosen.'
+        select name, collection, options, {class: options[:class]}.merge(options[:html_options] || {})
+      when :select2
+        options[:class] << 'select2-select'
+        collection = options.delete(:collection) or raise 'Please specify collection for select2.'
+        select name, collection, options, {class: options[:class]}.merge(options[:html_options] || {})
       else
         raise "Unknown input field type '#{type}'"
     end

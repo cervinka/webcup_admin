@@ -72,7 +72,9 @@ module WebcupHelper
     # <a href="" class="btn btn-primary btn-xs">Create new project</a>
     style = options.delete(:style) { 'primary' }
     size = options.delete(:size) { 'xs' }
+    icon_after = options.delete(:icon_after) { false }
     provided_class = options[:class]
+
     css_class = ['btn']
     css_class << "btn-#{style}"
     css_class << "btn-#{size}"
@@ -80,7 +82,13 @@ module WebcupHelper
     options[:class] = css_class
 
     icon = options.delete(:icon)
-    text = "#{icon_tag(icon)} #{text}".html_safe if icon
+    if icon
+      if icon_after
+        text = "#{text} #{icon_tag(icon)}".html_safe
+      else
+        text = "#{icon_tag(icon)} #{text}".html_safe
+      end
+    end
     link_to text, path, options
   end
 

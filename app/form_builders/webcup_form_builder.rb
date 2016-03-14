@@ -39,6 +39,21 @@ class WebcupFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
 
+  def switch_field(name, options)
+    checked_value = options.delete(:checked_value) || '1'
+    unchecked_value = options.delete(:unchecked_value) || '0'
+    options[:id] ||= "#{@object_name}_#{name}"
+    @template.content_tag :div, class: 'onoffswitch', id: "#{options[:id]}_wrapper" do
+      @template.concat check_box(name, options.merge({class: "onoffswitch-checkbox"}), checked_value, unchecked_value)
+      @template.concat(@template.content_tag(:label, class: "onoffswitch-label", for: options[:id]) do
+        @template.concat(@template.content_tag(:span, '', class: "onoffswitch-inner"))
+        @template.concat(@template.content_tag(:span, '', class: "onoffswitch-switch"))
+      end
+      )
+    end
+  end
+
+
   def input_control(name, options)
     type = options[:type]
     if options[:pre] || options[:post] || type == :date
@@ -102,6 +117,8 @@ class WebcupFormBuilder < ActionView::Helpers::FormBuilder
       when :checkbox
         options[:class] << 'i-checks'
         check_box(name, options)
+      when :switch
+        switch_field(name, options)
       when :select
         collection = options.delete(:collection) or raise 'Please specify collection for select.'
         select name, collection, options, {class: options[:class]}.merge(options[:html_options] || {})

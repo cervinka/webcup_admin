@@ -28,14 +28,14 @@ class WebcupFormBuilder < ActionView::Helpers::FormBuilder
       @template.concat label(name, label_name, class: "col-lg-#{label_length} control-label")
       # @template.concat @template.content_tag(:label, label, class: "col-lg-#{label_length} control-label")
       @template.concat(@template.content_tag(:div, class: "col-lg-#{field_length}") {
-                         if block_given?
-                           content = @template.capture(&block)
-                           @template.concat content
-                         else
-                           @template.concat input_control(name, options)
-                         end
-                         @template.concat @template.content_tag(:span, help, class: 'help-block m-b-none') if help
-                       })
+        if block_given?
+          content = @template.capture(&block)
+          @template.concat content
+        else
+          @template.concat input_control(name, options)
+        end
+        @template.concat @template.content_tag(:span, help, class: 'help-block m-b-none') if help
+      })
     end
   end
 
@@ -51,6 +51,18 @@ class WebcupFormBuilder < ActionView::Helpers::FormBuilder
       end
       )
     end
+  end
+
+  def awesome_radio_fields(name, options)
+    # needs awesome-bootstrap-checkbox.css or custom styling
+    values = options.delete(:values)
+    color = options.delete(:color) || 'info'
+    values.map do |title, value|
+      @template.content_tag(:div, class: "radio radio-#{color} radio-inline") do
+        @template.concat radio_button(name, value)
+        @template.concat label(name, title, value: value)
+      end
+    end.join.html_safe
   end
 
 
@@ -119,6 +131,8 @@ class WebcupFormBuilder < ActionView::Helpers::FormBuilder
         check_box(name, options)
       when :switch
         switch_field(name, options)
+      when :awesome_radios
+        awesome_radio_fields(name, options)
       when :select
         collection = options.delete(:collection) or raise 'Please specify collection for select.'
         select name, collection, options, {class: options[:class]}.merge(options[:html_options] || {})

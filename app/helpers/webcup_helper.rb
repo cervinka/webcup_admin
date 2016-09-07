@@ -40,7 +40,7 @@ module WebcupHelper
     li_options['class'] = 'active' if current_page?(path)
     content_tag :li, li_options do
       link_to path do
-        icon_tag(options[:icon]) +
+        icon_tag(options[:icon], tooltip: name) +
             content_tag(:span, name, class: 'nav-label')
       end
     end

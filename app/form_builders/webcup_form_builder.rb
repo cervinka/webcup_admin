@@ -114,11 +114,11 @@ class WebcupFormBuilder < ActionView::Helpers::FormBuilder
     type = options.delete(:type)
 
     case type
-      when :text, :date, :datetime, nil
+      when :text, nil
         text_field(name, options)
       when :number
         number_field(name, options)
-      when :datetime
+      when :date, :datetime
         datetime_field(name, options)
       when :email
         email_field(name, options)

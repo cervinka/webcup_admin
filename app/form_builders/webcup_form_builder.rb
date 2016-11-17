@@ -118,7 +118,17 @@ class WebcupFormBuilder < ActionView::Helpers::FormBuilder
         text_field(name, options)
       when :number
         number_field(name, options)
-      when :date, :datetime
+      when :date_select
+        date_select(name, options)
+      when :time_select
+        time_select(name, options)
+      when :datetime_select
+        datetime_select(name, options)
+      when :date_field
+        date_field(name, options)
+      when :time_field
+        time_field(name, options)
+      when :datetime_field
         datetime_field(name, options)
       when :email
         email_field(name, options)

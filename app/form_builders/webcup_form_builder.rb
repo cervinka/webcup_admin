@@ -14,8 +14,10 @@ class WebcupFormBuilder < ActionView::Helpers::FormBuilder
     </div>
 =end
 
-    label_length = options.delete(:label_length) || 2
-    field_length = options.delete(:field_length) || 10
+    label_length = options.delete(:label_length) || 2    # label_length is deprecated, use label_width instead
+    field_length = options.delete(:field_length) || 10   # field_length is deprecated, use field_width instead
+    label_width = options.delete(:label_width) || label_length
+    field_width = options.delete(:field_width) || field_length
     label_name = options.delete(:label) || name.to_s.capitalize
     help = options.delete(:help)
     type = options[:type]
@@ -25,9 +27,9 @@ class WebcupFormBuilder < ActionView::Helpers::FormBuilder
 
 
     @template.content_tag :div, class: 'form-group' do
-      @template.concat label(name, label_name, class: "col-lg-#{label_length} control-label")
+      @template.concat label(name, label_name, class: "col-lg-#{label_width} control-label") if label_width > 0
       # @template.concat @template.content_tag(:label, label, class: "col-lg-#{label_length} control-label")
-      @template.concat(@template.content_tag(:div, class: "col-lg-#{field_length}") {
+      @template.concat(@template.content_tag(:div, class: "col-lg-#{field_width}") {
         if block_given?
           content = @template.capture(&block)
           @template.concat content

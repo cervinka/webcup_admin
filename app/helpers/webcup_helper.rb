@@ -9,7 +9,7 @@ module WebcupHelper
         'alert-info'
       when :warning
         'alert-warning'
-      when :error
+      when :error, :alert
         'alert-danger'
       else
         'alert-info'

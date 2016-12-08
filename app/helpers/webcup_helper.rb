@@ -4,8 +4,7 @@ module WebcupHelper
     case rails_flash.to_s
       when 'success'
         'alert-success'
-      when 'notice'
-      when 'info'
+      when 'notice', 'info'
         'alert-info'
       when 'warning'
         'alert-warning'

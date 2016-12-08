@@ -1,15 +1,15 @@
 module WebcupHelper
 
   def bootstrap_alert_class(rails_flash)
-    case rails_flash
-      when :success
+    case rails_flash.to_s
+      when 'success'
         'alert-success'
-      when :notice
-      when :info
+      when 'notice'
+      when 'info'
         'alert-info'
-      when :warning
+      when 'warning'
         'alert-warning'
-      when :error, :alert
+      when 'error', 'alert'
         'alert-danger'
       else
         'alert-info'

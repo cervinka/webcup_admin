@@ -27,6 +27,7 @@
     City.human_attribute_name(:active)
   %>
 <% attributes.each do |attribute| -%>
+  <%- next if attribute.column_name == 'position'  %>
 
   <%- if attribute.reference? -%>
     <%%= f.form_group_field :<%= attribute.column_name %>, type: :chosen, label: <%= class_name %>.human_attribute_name(:<%= attribute.name %>), collection: <%= attribute.column_name.gsub(/_id$/,'').classify %>.order(:name).map { |m| [m.name, m.id] } %>

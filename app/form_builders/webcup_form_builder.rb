@@ -1,4 +1,26 @@
 class WebcupFormBuilder < ActionView::Helpers::FormBuilder
+
+  TYPE_TEXT = :text
+  TYPE_NUMBER = :number
+  TYPE_DATE_SELECT = :date_select
+  TYPE_TIME_SELECT = :time_select
+  TYPE_DATETIME_SELECT = :datetime_select
+  TYPE_DATE_FIELD = :date_field
+  TYPE_TIME_FIELD = :time_field
+  TYPE_DATETIME_FIELD = :datetime_field
+  TYPE_EMAIL = :email
+  TYPE_TEXTAREA = :textarea
+  TYPE_CKEDITOR = :ckeditor
+  TYPE_PASSWORD = :password
+  TYPE_CHECKBOX = :checkbox
+  TYPE_SWITCH = :switch
+  TYPE_AWESOME_RADIOS = :awesome_radios
+  TYPE_SELECT = :select
+  TYPE_CHOSEN = :chosen
+  TYPE_SELECT2 = :select2
+
+
+
   def form_group_field(name, options = {}, &block)
 
 =begin
